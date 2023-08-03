@@ -7,11 +7,13 @@ const FormInput = ({
   keyboardType,
   isTextArea,
   onChangeText,
+  value,
 }) => {
   return (
     <View style={styles.formControl}>
       <Text style={styles.label}>{label} :</Text>
       <TextInput
+        value={value}
         multiline={isTextArea ? true : false}
         numberOfLines={isTextArea ? 4 : 1}
         placeholder={placeholder}

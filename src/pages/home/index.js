@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 import { FontAwesome } from "@expo/vector-icons";
@@ -16,10 +16,28 @@ export default function Home({ navigation }) {
       let dataKontak = { ...data };
       setKontak(dataKontak);
     });
-  }, []);
+  });
 
-  const Hapus = () => {
-    remove(ref(db, "Kontak"));
+  const Hapus = (id) => {
+    Alert.alert(
+      "Info",
+      `Apakah anda yakin akan mengahpsu data ${kontak[id].nama} ?`,
+      [
+        {
+          text: "Cencel",
+          onPress: () => alert(`Data tidak dihapus`),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            remove(ref(db, `Kontak/${id}`));
+            alert("Data berhasil dihapus");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -31,7 +49,10 @@ export default function Home({ navigation }) {
           kontakKeys.map((key) => (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("DetailKontak", { data: kontak[key] })
+                navigation.navigate("DetailKontak", {
+                  data: kontak[key],
+                  id: key,
+                })
               }
               style={styles.listKontak}
               key={key}
@@ -41,10 +62,18 @@ export default function Home({ navigation }) {
                 <Text style={styles.nomer}>{kontak[key].nomer}</Text>
               </View>
               <View style={styles.ctaKontak}>
-                <TouchableOpacity style={styles.edit}>
+                <TouchableOpacity
+                  style={styles.edit}
+                  onPress={() =>
+                    navigation.navigate("UbahKontak", { data: kontak[key] })
+                  }
+                >
                   <FontAwesome name="edit" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.hapus} onPress={() => Hapus()}>
+                <TouchableOpacity
+                  style={styles.hapus}
+                  onPress={() => Hapus(key)}
+                >
                   <FontAwesome name="trash" size={24} color="white" />
                 </TouchableOpacity>
               </View>
