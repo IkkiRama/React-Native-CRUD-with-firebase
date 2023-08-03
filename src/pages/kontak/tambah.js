@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { ref, onValue, push, update, remove } from "firebase/database";
+import { ref, push } from "firebase/database";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 
 import { FormInput } from "../../components";
