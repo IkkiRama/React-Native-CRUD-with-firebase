@@ -29,12 +29,15 @@ export default function Home({ navigation }) {
       <View>
         {kontakKeys.length > 0 ? (
           kontakKeys.map((key) => (
-            <View style={styles.listKontak} key={key}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("DetailKontak", { data: kontak[key] })
+              }
+              style={styles.listKontak}
+              key={key}
+            >
               <View style={styles.informasiKontak}>
                 <Text style={styles.nama}>{kontak[key].nama}</Text>
-                <Text style={styles.alamat} numberOfLines={1}>
-                  {kontak[key].alamat}
-                </Text>
                 <Text style={styles.nomer}>{kontak[key].nomer}</Text>
               </View>
               <View style={styles.ctaKontak}>
@@ -45,7 +48,7 @@ export default function Home({ navigation }) {
                   <FontAwesome name="trash" size={24} color="white" />
                 </TouchableOpacity>
               </View>
-            </View>
+            </TouchableOpacity>
           ))
         ) : (
           <Text>Belum ada data kontak</Text>
@@ -70,7 +73,7 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     paddingVertical: 50,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
   },
 
   titlePage: {
