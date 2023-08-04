@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 import { FontAwesome } from "@expo/vector-icons";
@@ -82,6 +82,11 @@ export default function Home({ navigation }) {
         ) : (
           <Text>Belum ada data kontak</Text>
         )}
+
+        <Button
+          title="Carousel"
+          onPress={() => navigation.navigate("Carousel")}
+        />
       </View>
 
       <View style={styles.wrapperButton}>
